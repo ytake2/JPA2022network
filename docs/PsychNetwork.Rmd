@@ -61,9 +61,9 @@ class: middle, inverse
 
 橋: コミュニティとコミュニティをつなぐもの
 
-<img src="http://www.tokachigawa.net/otofuketime/imgs/view/detail/view17_img.jpg" width="700px" height="400px" style="position:right; right:10px; top:100px;">
+<img src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/58/%E5%8D%81%E5%8B%9D%E5%A4%A7%E6%A9%8B%EF%BC%88Tokachiohhashi%EF%BC%89_-_panoramio.jpg/1024px-%E5%8D%81%E5%8B%9D%E5%A4%A7%E6%A9%8B%EF%BC%88Tokachiohhashi%EF%BC%89_-_panoramio.jpg" width="600px" height="300px" style="position:right; right:10px; top:100px;">
 
-[http://www.tokachigawa.net/otofuketime/view/view17.html](http://www.tokachigawa.net/otofuketime/view/view17.html)
+.footnote[[<font color="white">十勝大橋wikipediaより</font>](https://upload.wikimedia.org/wikipedia/commons/thumb/5/58/%E5%8D%81%E5%8B%9D%E5%A4%A7%E6%A9%8B%EF%BC%88Tokachiohhashi%EF%BC%89_-_panoramio.jpg/1024px-%E5%8D%81%E5%8B%9D%E5%A4%A7%E6%A9%8B%EF%BC%88Tokachiohhashi%EF%BC%89_-_panoramio.jpg)]
 
 ---
 class: left
