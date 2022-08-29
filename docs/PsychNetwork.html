@@ -38,17 +38,12 @@ class: center, middle, inverse, title-slide
 
 ## 配布資料
 
-.pull-left[
 
 ### スライド
 
-]
+&lt;img src="fig/qrcode.png" width="50%" height="50%" style="display: block; margin: auto;" /&gt;
 
-.pull-right[
 
-### ドキュメント
-
-]
 
 
 
@@ -71,10 +66,11 @@ class: middle, inverse
 
 ## ブリッジ中心性 (bridge centrality) 
 
-コミュニティとコミュニティをつなぐ橋として機能するノードはどれだ
+橋: コミュニティとコミュニティをつなぐもの
 
 &lt;img src="http://www.tokachigawa.net/otofuketime/imgs/view/detail/view17_img.jpg" width="700px" height="400px" style="position:right; right:10px; top:100px;"&gt;
 
+[http://www.tokachigawa.net/otofuketime/view/view17.html](http://www.tokachigawa.net/otofuketime/view/view17.html)
 
 ---
 class: left
@@ -97,7 +93,7 @@ class: left
 ]
 
 .pull-right[
-![](PsychNetwork_files/figure-html/unnamed-chunk-1-1.png)&lt;!-- --&gt;
+![](PsychNetwork_files/figure-html/unnamed-chunk-2-1.png)&lt;!-- --&gt;
 ]
 
 
@@ -297,7 +293,7 @@ results_bridge&lt;-plot(results,
                      groups=list("GAD7"=c(1:7),"PHQ9"=c(8:16)))
 ```
 
-&lt;img src="PsychNetwork_files/figure-html/unnamed-chunk-7-1.png" width="400px" height="350px" style="display: block; margin: auto;" /&gt;
+&lt;img src="PsychNetwork_files/figure-html/unnamed-chunk-8-1.png" width="400px" height="350px" style="display: block; margin: auto;" /&gt;
 
 **groups=list("GAD7"=c(1:7),"PHQ9"=c(8:16))**でコミュニティを指定
 
@@ -313,7 +309,7 @@ bridge_centrality &lt;- bridge(results_bridge,
 plot(bridge_centrality)
 ```
 
-&lt;img src="PsychNetwork_files/figure-html/unnamed-chunk-8-1.png" width="750px" height="300px" style="display: block; margin: auto;" /&gt;
+&lt;img src="PsychNetwork_files/figure-html/unnamed-chunk-9-1.png" width="750px" height="300px" style="display: block; margin: auto;" /&gt;
 - bridge expected influenceが高いのはノード5,9
 - bridge strengthが高いのはノード4,15
 
@@ -381,25 +377,46 @@ bridge closenessはCS係数が.50をきっており不安定、解釈を控え�
 
 
 ```r
-plot(stability_centrality_bridge,
+plot(bridge_stability,
      c("bridgeStrength","bridgeCloseness",
        "bridgeBetweenness"))
 ```
 
-&lt;img src="PsychNetwork_files/figure-html/unnamed-chunk-13-1.png" width="600px" height="400px" style="display: block; margin: auto;" /&gt;
+&lt;img src="PsychNetwork_files/figure-html/unnamed-chunk-14-1.png" width="600px" height="400px" style="display: block; margin: auto;" /&gt;
 
 ブリッジ中心性指標は、サンプルをかなり減らしても，オリジナルとの相関が高い。
 
 ---
 ### ブリッジ中心性指標の弱み
-(引用)
-
-- a
-- b
-- c
 
 
-#### ネットワーク負荷量で考察が深まるかも
+#### &lt;a name=cite-christensenWhatBridgeCentrality2021&gt;&lt;/a&gt;[Christensen, Garrido, and Golino (2021)](https://doi.org/10.31234/osf.io/a8svr)
+
+- コミュニティが3以上の場合に, どのコミュニティを区別した影響性を検討できない 
+
+  - A -&gt; B より A -&gt;C の影響性が強いのかわからない  
+  
+- 研究間で比較が難しい  　
+
+- 指標に効果の大きさを判断する基準がない  　
+
+
+
+#### &lt;a name=cite-christensenEquivalencyFactorNetwork2021&gt;&lt;/a&gt;[Christensen and Golino (2021)](https://doi.org/10.3758/s13428-020-01500-6)
+
+- ネットワーク負荷量(network loadings)の活用を推奨  
+
+  - コミュニティが3以上の場合に個々のコミュニティへの影響性を評価できる  　
+  
+  - 標準化指標なので、研究間の比較がしやすい  　
+  
+  - 効果の大きさを判断する基準があり  　
+  
+  - `EGAnet package`の`net.loads`関数で推定可能
+  
+  - ブリッジ中心性はネットワーク負荷量の総和に等しいので、情報量のより多いネットワーク負荷量の活用がよい
+
+
 
 ---
 class: middle, inverse
@@ -414,14 +431,19 @@ class: middle, inverse
 class: left
 
 ## ネットワーク比較検定
-(Network Comparison Test: NCT, )
+
+#### Network Comparison Test 
+&lt;a name=cite-vanborkuloComparingNetworkStructures2022&gt;&lt;/a&gt;[van
+Borkulo, van
+Bork, Boschloo, Kossakowski, Tio, Schoevers, Borsboom, and Waldorp (2022)](https://doi.org/10.1037/met0000476)
+
 
 - Step1: 観察データを群ごとにネット分析し、群間差の指標を計算  　
 
 - Step2: 観測データからリサンプリングしたデータでStep1の計算を繰り返し、群間差指標の参照分布を得る
 - Step3: Step1で計算された群間差指標の値と参照分布を比較し、観察データの逸脱度を評価（統計的有意性）
 
-&lt;img src="fig/NCT2.png" width="50%" height="50%" style="display: block; margin: auto;" /&gt;
+&lt;img src="fig/NCT2.png" width="40%" height="40%" style="display: block; margin: auto;" /&gt;
 
 
 ---
@@ -442,7 +464,6 @@ class: center
 class: left
 
 ## ネットワーク比較検定
-(Network Comparison Test: NCT, )
 
 ### - Network invariance test
 ### - Global strength invariance test
@@ -454,21 +475,23 @@ class: left
 ---
 class: left
 
-### ネットワークの群間比較
-(Network Comparison Test: NCT, )
+### ネットワーク比較検定
 
 #### 1. Network structure invariance hypothesis 
-- ネットワーク構造が群間で完全に等しい
+- ネットワーク構造が群間で完全に等しい  　
+
 - 個々のエッジの群間の差(の絶対値)の最大値
 
 
 #### 2.Global strength invariance hypothesis*
-- 群間で全体の連結レベルが等しい
+- 群間で全体の連結レベルが等しい  　
+
 - エッジの絶対値の総和(Global Strength)の差
 
 
 #### 3. Edge strength invariance hypothesis 
-- 特定のエッジが群間で等しい
+- 特定のエッジが群間で等しい  　
+
 - 特定のエッジの群間差
 
 .footnote[[*]個々の中心性指標、ブリッジ中心性指標についても比較可能]
@@ -476,11 +499,12 @@ class: left
 ---
 class: left
 
-### ネットワークの群間比較
-(Network Comparison Test: NCT, )
-
+### ネットワーク比較検定
 
 &lt;img src="fig/NCT4.png" width="100%" height="100%" style="display: block; margin: auto;" /&gt;
+
+[&lt;font size=3&gt; https://cvborkulo.files.wordpress.com/2014/09/workshop-summer-school-3-parts.pdf &lt;/font&gt;
+](https://cvborkulo.files.wordpress.com/2014/09/workshop-summer-school-3-parts.pdf)
 
 
 ---
@@ -545,7 +569,7 @@ plot(network_female, layout = L, title = "Females", maximum = Max)
 ### 群ごとのネットワークのプロット 　　　　
   　　　　
   　
-&lt;img src="PsychNetwork_files/figure-html/unnamed-chunk-20-1.png" width="750px" height="450px" style="display: block; margin: auto;" /&gt;
+&lt;img src="PsychNetwork_files/figure-html/unnamed-chunk-21-1.png" width="750px" height="450px" style="display: block; margin: auto;" /&gt;
 
 
 
@@ -606,7 +630,7 @@ plot(results_NCT,
      what="network")
 ```
 
-![](PsychNetwork_files/figure-html/unnamed-chunk-23-1.png)&lt;!-- --&gt;
+![](PsychNetwork_files/figure-html/unnamed-chunk-24-1.png)&lt;!-- --&gt;
 ]
 
 .pull-right[
@@ -617,7 +641,7 @@ plot(results_NCT,
      what="strength")
 ```
 
-![](PsychNetwork_files/figure-html/unnamed-chunk-24-1.png)&lt;!-- --&gt;
+![](PsychNetwork_files/figure-html/unnamed-chunk-25-1.png)&lt;!-- --&gt;
 ]
 
 いずれの指標においても群間差は示されず
@@ -655,31 +679,31 @@ results_NCT$einv.pvals%&gt;%
    &lt;td style="text-align:left;"&gt; 33 &lt;/td&gt;
    &lt;td style="text-align:left;"&gt; gad7a &lt;/td&gt;
    &lt;td style="text-align:left;"&gt; gad7c &lt;/td&gt;
-   &lt;td style="text-align:right;"&gt; 0.71 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.66 &lt;/td&gt;
   &lt;/tr&gt;
   &lt;tr&gt;
    &lt;td style="text-align:left;"&gt; 34 &lt;/td&gt;
    &lt;td style="text-align:left;"&gt; gad7b &lt;/td&gt;
    &lt;td style="text-align:left;"&gt; gad7c &lt;/td&gt;
-   &lt;td style="text-align:right;"&gt; 0.70 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.74 &lt;/td&gt;
   &lt;/tr&gt;
   &lt;tr&gt;
    &lt;td style="text-align:left;"&gt; 49 &lt;/td&gt;
    &lt;td style="text-align:left;"&gt; gad7a &lt;/td&gt;
    &lt;td style="text-align:left;"&gt; gad7d &lt;/td&gt;
-   &lt;td style="text-align:right;"&gt; 0.46 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.50 &lt;/td&gt;
   &lt;/tr&gt;
   &lt;tr&gt;
    &lt;td style="text-align:left;"&gt; 50 &lt;/td&gt;
    &lt;td style="text-align:left;"&gt; gad7b &lt;/td&gt;
    &lt;td style="text-align:left;"&gt; gad7d &lt;/td&gt;
-   &lt;td style="text-align:right;"&gt; 0.88 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.90 &lt;/td&gt;
   &lt;/tr&gt;
   &lt;tr&gt;
    &lt;td style="text-align:left;"&gt; 51 &lt;/td&gt;
    &lt;td style="text-align:left;"&gt; gad7c &lt;/td&gt;
    &lt;td style="text-align:left;"&gt; gad7d &lt;/td&gt;
-   &lt;td style="text-align:right;"&gt; 0.70 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.75 &lt;/td&gt;
   &lt;/tr&gt;
   &lt;tr&gt;
    &lt;td style="text-align:left;"&gt; 65 &lt;/td&gt;
@@ -691,7 +715,7 @@ results_NCT$einv.pvals%&gt;%
    &lt;td style="text-align:left;"&gt; 66 &lt;/td&gt;
    &lt;td style="text-align:left;"&gt; gad7b &lt;/td&gt;
    &lt;td style="text-align:left;"&gt; gad7e &lt;/td&gt;
-   &lt;td style="text-align:right;"&gt; 0.83 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.82 &lt;/td&gt;
   &lt;/tr&gt;
   &lt;tr&gt;
    &lt;td style="text-align:left;"&gt; 67 &lt;/td&gt;
@@ -703,25 +727,25 @@ results_NCT$einv.pvals%&gt;%
    &lt;td style="text-align:left;"&gt; 68 &lt;/td&gt;
    &lt;td style="text-align:left;"&gt; gad7d &lt;/td&gt;
    &lt;td style="text-align:left;"&gt; gad7e &lt;/td&gt;
-   &lt;td style="text-align:right;"&gt; 0.92 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.85 &lt;/td&gt;
   &lt;/tr&gt;
   &lt;tr&gt;
    &lt;td style="text-align:left;"&gt; 81 &lt;/td&gt;
    &lt;td style="text-align:left;"&gt; gad7a &lt;/td&gt;
    &lt;td style="text-align:left;"&gt; gad7f &lt;/td&gt;
-   &lt;td style="text-align:right;"&gt; 0.42 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.36 &lt;/td&gt;
   &lt;/tr&gt;
   &lt;tr&gt;
    &lt;td style="text-align:left;"&gt; 82 &lt;/td&gt;
    &lt;td style="text-align:left;"&gt; gad7b &lt;/td&gt;
    &lt;td style="text-align:left;"&gt; gad7f &lt;/td&gt;
-   &lt;td style="text-align:right;"&gt; 0.04 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.14 &lt;/td&gt;
   &lt;/tr&gt;
   &lt;tr&gt;
    &lt;td style="text-align:left;"&gt; 83 &lt;/td&gt;
    &lt;td style="text-align:left;"&gt; gad7c &lt;/td&gt;
    &lt;td style="text-align:left;"&gt; gad7f &lt;/td&gt;
-   &lt;td style="text-align:right;"&gt; 0.86 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.84 &lt;/td&gt;
   &lt;/tr&gt;
   &lt;tr&gt;
    &lt;td style="text-align:left;"&gt; 84 &lt;/td&gt;
@@ -733,79 +757,79 @@ results_NCT$einv.pvals%&gt;%
    &lt;td style="text-align:left;"&gt; 85 &lt;/td&gt;
    &lt;td style="text-align:left;"&gt; gad7e &lt;/td&gt;
    &lt;td style="text-align:left;"&gt; gad7f &lt;/td&gt;
-   &lt;td style="text-align:right;"&gt; 0.86 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.90 &lt;/td&gt;
   &lt;/tr&gt;
   &lt;tr&gt;
    &lt;td style="text-align:left;"&gt; 97 &lt;/td&gt;
    &lt;td style="text-align:left;"&gt; gad7a &lt;/td&gt;
    &lt;td style="text-align:left;"&gt; gad7g &lt;/td&gt;
-   &lt;td style="text-align:right;"&gt; 0.55 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.56 &lt;/td&gt;
   &lt;/tr&gt;
   &lt;tr&gt;
    &lt;td style="text-align:left;"&gt; 98 &lt;/td&gt;
    &lt;td style="text-align:left;"&gt; gad7b &lt;/td&gt;
    &lt;td style="text-align:left;"&gt; gad7g &lt;/td&gt;
-   &lt;td style="text-align:right;"&gt; 0.29 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.15 &lt;/td&gt;
   &lt;/tr&gt;
   &lt;tr&gt;
    &lt;td style="text-align:left;"&gt; 99 &lt;/td&gt;
    &lt;td style="text-align:left;"&gt; gad7c &lt;/td&gt;
    &lt;td style="text-align:left;"&gt; gad7g &lt;/td&gt;
-   &lt;td style="text-align:right;"&gt; 0.14 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.18 &lt;/td&gt;
   &lt;/tr&gt;
   &lt;tr&gt;
    &lt;td style="text-align:left;"&gt; 100 &lt;/td&gt;
    &lt;td style="text-align:left;"&gt; gad7d &lt;/td&gt;
    &lt;td style="text-align:left;"&gt; gad7g &lt;/td&gt;
-   &lt;td style="text-align:right;"&gt; 0.71 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.66 &lt;/td&gt;
   &lt;/tr&gt;
   &lt;tr&gt;
    &lt;td style="text-align:left;"&gt; 101 &lt;/td&gt;
    &lt;td style="text-align:left;"&gt; gad7e &lt;/td&gt;
    &lt;td style="text-align:left;"&gt; gad7g &lt;/td&gt;
-   &lt;td style="text-align:right;"&gt; 0.67 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.64 &lt;/td&gt;
   &lt;/tr&gt;
   &lt;tr&gt;
    &lt;td style="text-align:left;"&gt; 102 &lt;/td&gt;
    &lt;td style="text-align:left;"&gt; gad7f &lt;/td&gt;
    &lt;td style="text-align:left;"&gt; gad7g &lt;/td&gt;
-   &lt;td style="text-align:right;"&gt; 0.16 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.17 &lt;/td&gt;
   &lt;/tr&gt;
   &lt;tr&gt;
    &lt;td style="text-align:left;"&gt; 113 &lt;/td&gt;
    &lt;td style="text-align:left;"&gt; gad7a &lt;/td&gt;
    &lt;td style="text-align:left;"&gt; phq9a &lt;/td&gt;
-   &lt;td style="text-align:right;"&gt; 0.74 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.87 &lt;/td&gt;
   &lt;/tr&gt;
   &lt;tr&gt;
    &lt;td style="text-align:left;"&gt; 114 &lt;/td&gt;
    &lt;td style="text-align:left;"&gt; gad7b &lt;/td&gt;
    &lt;td style="text-align:left;"&gt; phq9a &lt;/td&gt;
-   &lt;td style="text-align:right;"&gt; 0.22 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.21 &lt;/td&gt;
   &lt;/tr&gt;
   &lt;tr&gt;
    &lt;td style="text-align:left;"&gt; 115 &lt;/td&gt;
    &lt;td style="text-align:left;"&gt; gad7c &lt;/td&gt;
    &lt;td style="text-align:left;"&gt; phq9a &lt;/td&gt;
-   &lt;td style="text-align:right;"&gt; 0.74 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.71 &lt;/td&gt;
   &lt;/tr&gt;
   &lt;tr&gt;
    &lt;td style="text-align:left;"&gt; 116 &lt;/td&gt;
    &lt;td style="text-align:left;"&gt; gad7d &lt;/td&gt;
    &lt;td style="text-align:left;"&gt; phq9a &lt;/td&gt;
-   &lt;td style="text-align:right;"&gt; 0.70 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.69 &lt;/td&gt;
   &lt;/tr&gt;
   &lt;tr&gt;
    &lt;td style="text-align:left;"&gt; 117 &lt;/td&gt;
    &lt;td style="text-align:left;"&gt; gad7e &lt;/td&gt;
    &lt;td style="text-align:left;"&gt; phq9a &lt;/td&gt;
-   &lt;td style="text-align:right;"&gt; 0.44 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.42 &lt;/td&gt;
   &lt;/tr&gt;
   &lt;tr&gt;
    &lt;td style="text-align:left;"&gt; 118 &lt;/td&gt;
    &lt;td style="text-align:left;"&gt; gad7f &lt;/td&gt;
    &lt;td style="text-align:left;"&gt; phq9a &lt;/td&gt;
-   &lt;td style="text-align:right;"&gt; 0.25 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.31 &lt;/td&gt;
   &lt;/tr&gt;
   &lt;tr&gt;
    &lt;td style="text-align:left;"&gt; 119 &lt;/td&gt;
@@ -817,79 +841,79 @@ results_NCT$einv.pvals%&gt;%
    &lt;td style="text-align:left;"&gt; 129 &lt;/td&gt;
    &lt;td style="text-align:left;"&gt; gad7a &lt;/td&gt;
    &lt;td style="text-align:left;"&gt; phq9b &lt;/td&gt;
-   &lt;td style="text-align:right;"&gt; 0.21 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.26 &lt;/td&gt;
   &lt;/tr&gt;
   &lt;tr&gt;
    &lt;td style="text-align:left;"&gt; 130 &lt;/td&gt;
    &lt;td style="text-align:left;"&gt; gad7b &lt;/td&gt;
    &lt;td style="text-align:left;"&gt; phq9b &lt;/td&gt;
-   &lt;td style="text-align:right;"&gt; 0.46 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.48 &lt;/td&gt;
   &lt;/tr&gt;
   &lt;tr&gt;
    &lt;td style="text-align:left;"&gt; 131 &lt;/td&gt;
    &lt;td style="text-align:left;"&gt; gad7c &lt;/td&gt;
    &lt;td style="text-align:left;"&gt; phq9b &lt;/td&gt;
-   &lt;td style="text-align:right;"&gt; 0.70 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.67 &lt;/td&gt;
   &lt;/tr&gt;
   &lt;tr&gt;
    &lt;td style="text-align:left;"&gt; 132 &lt;/td&gt;
    &lt;td style="text-align:left;"&gt; gad7d &lt;/td&gt;
    &lt;td style="text-align:left;"&gt; phq9b &lt;/td&gt;
-   &lt;td style="text-align:right;"&gt; 0.61 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.46 &lt;/td&gt;
   &lt;/tr&gt;
   &lt;tr&gt;
    &lt;td style="text-align:left;"&gt; 133 &lt;/td&gt;
    &lt;td style="text-align:left;"&gt; gad7e &lt;/td&gt;
    &lt;td style="text-align:left;"&gt; phq9b &lt;/td&gt;
-   &lt;td style="text-align:right;"&gt; 0.85 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.87 &lt;/td&gt;
   &lt;/tr&gt;
   &lt;tr&gt;
    &lt;td style="text-align:left;"&gt; 134 &lt;/td&gt;
    &lt;td style="text-align:left;"&gt; gad7f &lt;/td&gt;
    &lt;td style="text-align:left;"&gt; phq9b &lt;/td&gt;
-   &lt;td style="text-align:right;"&gt; 0.39 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.37 &lt;/td&gt;
   &lt;/tr&gt;
   &lt;tr&gt;
    &lt;td style="text-align:left;"&gt; 135 &lt;/td&gt;
    &lt;td style="text-align:left;"&gt; gad7g &lt;/td&gt;
    &lt;td style="text-align:left;"&gt; phq9b &lt;/td&gt;
-   &lt;td style="text-align:right;"&gt; 0.92 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.96 &lt;/td&gt;
   &lt;/tr&gt;
   &lt;tr&gt;
    &lt;td style="text-align:left;"&gt; 136 &lt;/td&gt;
    &lt;td style="text-align:left;"&gt; phq9a &lt;/td&gt;
    &lt;td style="text-align:left;"&gt; phq9b &lt;/td&gt;
-   &lt;td style="text-align:right;"&gt; 0.00 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.01 &lt;/td&gt;
   &lt;/tr&gt;
   &lt;tr&gt;
    &lt;td style="text-align:left;"&gt; 145 &lt;/td&gt;
    &lt;td style="text-align:left;"&gt; gad7a &lt;/td&gt;
    &lt;td style="text-align:left;"&gt; phq9c &lt;/td&gt;
-   &lt;td style="text-align:right;"&gt; 0.33 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.30 &lt;/td&gt;
   &lt;/tr&gt;
   &lt;tr&gt;
    &lt;td style="text-align:left;"&gt; 146 &lt;/td&gt;
    &lt;td style="text-align:left;"&gt; gad7b &lt;/td&gt;
    &lt;td style="text-align:left;"&gt; phq9c &lt;/td&gt;
-   &lt;td style="text-align:right;"&gt; 0.05 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.01 &lt;/td&gt;
   &lt;/tr&gt;
   &lt;tr&gt;
    &lt;td style="text-align:left;"&gt; 147 &lt;/td&gt;
    &lt;td style="text-align:left;"&gt; gad7c &lt;/td&gt;
    &lt;td style="text-align:left;"&gt; phq9c &lt;/td&gt;
-   &lt;td style="text-align:right;"&gt; 0.57 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.49 &lt;/td&gt;
   &lt;/tr&gt;
   &lt;tr&gt;
    &lt;td style="text-align:left;"&gt; 148 &lt;/td&gt;
    &lt;td style="text-align:left;"&gt; gad7d &lt;/td&gt;
    &lt;td style="text-align:left;"&gt; phq9c &lt;/td&gt;
-   &lt;td style="text-align:right;"&gt; 0.93 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.90 &lt;/td&gt;
   &lt;/tr&gt;
   &lt;tr&gt;
    &lt;td style="text-align:left;"&gt; 149 &lt;/td&gt;
    &lt;td style="text-align:left;"&gt; gad7e &lt;/td&gt;
    &lt;td style="text-align:left;"&gt; phq9c &lt;/td&gt;
-   &lt;td style="text-align:right;"&gt; 0.54 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.39 &lt;/td&gt;
   &lt;/tr&gt;
   &lt;tr&gt;
    &lt;td style="text-align:left;"&gt; 150 &lt;/td&gt;
@@ -901,25 +925,25 @@ results_NCT$einv.pvals%&gt;%
    &lt;td style="text-align:left;"&gt; 151 &lt;/td&gt;
    &lt;td style="text-align:left;"&gt; gad7g &lt;/td&gt;
    &lt;td style="text-align:left;"&gt; phq9c &lt;/td&gt;
-   &lt;td style="text-align:right;"&gt; 0.26 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.34 &lt;/td&gt;
   &lt;/tr&gt;
   &lt;tr&gt;
    &lt;td style="text-align:left;"&gt; 152 &lt;/td&gt;
    &lt;td style="text-align:left;"&gt; phq9a &lt;/td&gt;
    &lt;td style="text-align:left;"&gt; phq9c &lt;/td&gt;
-   &lt;td style="text-align:right;"&gt; 0.22 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.21 &lt;/td&gt;
   &lt;/tr&gt;
   &lt;tr&gt;
    &lt;td style="text-align:left;"&gt; 153 &lt;/td&gt;
    &lt;td style="text-align:left;"&gt; phq9b &lt;/td&gt;
    &lt;td style="text-align:left;"&gt; phq9c &lt;/td&gt;
-   &lt;td style="text-align:right;"&gt; 0.80 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.87 &lt;/td&gt;
   &lt;/tr&gt;
   &lt;tr&gt;
    &lt;td style="text-align:left;"&gt; 161 &lt;/td&gt;
    &lt;td style="text-align:left;"&gt; gad7a &lt;/td&gt;
    &lt;td style="text-align:left;"&gt; phq9d &lt;/td&gt;
-   &lt;td style="text-align:right;"&gt; 0.14 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.13 &lt;/td&gt;
   &lt;/tr&gt;
   &lt;tr&gt;
    &lt;td style="text-align:left;"&gt; 162 &lt;/td&gt;
@@ -931,25 +955,25 @@ results_NCT$einv.pvals%&gt;%
    &lt;td style="text-align:left;"&gt; 163 &lt;/td&gt;
    &lt;td style="text-align:left;"&gt; gad7c &lt;/td&gt;
    &lt;td style="text-align:left;"&gt; phq9d &lt;/td&gt;
-   &lt;td style="text-align:right;"&gt; 0.58 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.61 &lt;/td&gt;
   &lt;/tr&gt;
   &lt;tr&gt;
    &lt;td style="text-align:left;"&gt; 164 &lt;/td&gt;
    &lt;td style="text-align:left;"&gt; gad7d &lt;/td&gt;
    &lt;td style="text-align:left;"&gt; phq9d &lt;/td&gt;
-   &lt;td style="text-align:right;"&gt; 0.54 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.55 &lt;/td&gt;
   &lt;/tr&gt;
   &lt;tr&gt;
    &lt;td style="text-align:left;"&gt; 165 &lt;/td&gt;
    &lt;td style="text-align:left;"&gt; gad7e &lt;/td&gt;
    &lt;td style="text-align:left;"&gt; phq9d &lt;/td&gt;
-   &lt;td style="text-align:right;"&gt; 0.06 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.05 &lt;/td&gt;
   &lt;/tr&gt;
   &lt;tr&gt;
    &lt;td style="text-align:left;"&gt; 166 &lt;/td&gt;
    &lt;td style="text-align:left;"&gt; gad7f &lt;/td&gt;
    &lt;td style="text-align:left;"&gt; phq9d &lt;/td&gt;
-   &lt;td style="text-align:right;"&gt; 0.25 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.26 &lt;/td&gt;
   &lt;/tr&gt;
   &lt;tr&gt;
    &lt;td style="text-align:left;"&gt; 167 &lt;/td&gt;
@@ -961,25 +985,25 @@ results_NCT$einv.pvals%&gt;%
    &lt;td style="text-align:left;"&gt; 168 &lt;/td&gt;
    &lt;td style="text-align:left;"&gt; phq9a &lt;/td&gt;
    &lt;td style="text-align:left;"&gt; phq9d &lt;/td&gt;
-   &lt;td style="text-align:right;"&gt; 0.81 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.76 &lt;/td&gt;
   &lt;/tr&gt;
   &lt;tr&gt;
    &lt;td style="text-align:left;"&gt; 169 &lt;/td&gt;
    &lt;td style="text-align:left;"&gt; phq9b &lt;/td&gt;
    &lt;td style="text-align:left;"&gt; phq9d &lt;/td&gt;
-   &lt;td style="text-align:right;"&gt; 0.93 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.97 &lt;/td&gt;
   &lt;/tr&gt;
   &lt;tr&gt;
    &lt;td style="text-align:left;"&gt; 170 &lt;/td&gt;
    &lt;td style="text-align:left;"&gt; phq9c &lt;/td&gt;
    &lt;td style="text-align:left;"&gt; phq9d &lt;/td&gt;
-   &lt;td style="text-align:right;"&gt; 0.97 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.94 &lt;/td&gt;
   &lt;/tr&gt;
   &lt;tr&gt;
    &lt;td style="text-align:left;"&gt; 177 &lt;/td&gt;
    &lt;td style="text-align:left;"&gt; gad7a &lt;/td&gt;
    &lt;td style="text-align:left;"&gt; phq9e &lt;/td&gt;
-   &lt;td style="text-align:right;"&gt; 0.16 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.11 &lt;/td&gt;
   &lt;/tr&gt;
   &lt;tr&gt;
    &lt;td style="text-align:left;"&gt; 178 &lt;/td&gt;
@@ -991,25 +1015,25 @@ results_NCT$einv.pvals%&gt;%
    &lt;td style="text-align:left;"&gt; 179 &lt;/td&gt;
    &lt;td style="text-align:left;"&gt; gad7c &lt;/td&gt;
    &lt;td style="text-align:left;"&gt; phq9e &lt;/td&gt;
-   &lt;td style="text-align:right;"&gt; 0.35 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.25 &lt;/td&gt;
   &lt;/tr&gt;
   &lt;tr&gt;
    &lt;td style="text-align:left;"&gt; 180 &lt;/td&gt;
    &lt;td style="text-align:left;"&gt; gad7d &lt;/td&gt;
    &lt;td style="text-align:left;"&gt; phq9e &lt;/td&gt;
-   &lt;td style="text-align:right;"&gt; 0.67 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.61 &lt;/td&gt;
   &lt;/tr&gt;
   &lt;tr&gt;
    &lt;td style="text-align:left;"&gt; 181 &lt;/td&gt;
    &lt;td style="text-align:left;"&gt; gad7e &lt;/td&gt;
    &lt;td style="text-align:left;"&gt; phq9e &lt;/td&gt;
-   &lt;td style="text-align:right;"&gt; 0.59 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.62 &lt;/td&gt;
   &lt;/tr&gt;
   &lt;tr&gt;
    &lt;td style="text-align:left;"&gt; 182 &lt;/td&gt;
    &lt;td style="text-align:left;"&gt; gad7f &lt;/td&gt;
    &lt;td style="text-align:left;"&gt; phq9e &lt;/td&gt;
-   &lt;td style="text-align:right;"&gt; 0.49 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.55 &lt;/td&gt;
   &lt;/tr&gt;
   &lt;tr&gt;
    &lt;td style="text-align:left;"&gt; 183 &lt;/td&gt;
@@ -1021,7 +1045,7 @@ results_NCT$einv.pvals%&gt;%
    &lt;td style="text-align:left;"&gt; 184 &lt;/td&gt;
    &lt;td style="text-align:left;"&gt; phq9a &lt;/td&gt;
    &lt;td style="text-align:left;"&gt; phq9e &lt;/td&gt;
-   &lt;td style="text-align:right;"&gt; 0.35 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.42 &lt;/td&gt;
   &lt;/tr&gt;
   &lt;tr&gt;
    &lt;td style="text-align:left;"&gt; 185 &lt;/td&gt;
@@ -1033,13 +1057,13 @@ results_NCT$einv.pvals%&gt;%
    &lt;td style="text-align:left;"&gt; 186 &lt;/td&gt;
    &lt;td style="text-align:left;"&gt; phq9c &lt;/td&gt;
    &lt;td style="text-align:left;"&gt; phq9e &lt;/td&gt;
-   &lt;td style="text-align:right;"&gt; 0.55 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.45 &lt;/td&gt;
   &lt;/tr&gt;
   &lt;tr&gt;
    &lt;td style="text-align:left;"&gt; 187 &lt;/td&gt;
    &lt;td style="text-align:left;"&gt; phq9d &lt;/td&gt;
    &lt;td style="text-align:left;"&gt; phq9e &lt;/td&gt;
-   &lt;td style="text-align:right;"&gt; 0.73 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.72 &lt;/td&gt;
   &lt;/tr&gt;
   &lt;tr&gt;
    &lt;td style="text-align:left;"&gt; 193 &lt;/td&gt;
@@ -1057,43 +1081,43 @@ results_NCT$einv.pvals%&gt;%
    &lt;td style="text-align:left;"&gt; 195 &lt;/td&gt;
    &lt;td style="text-align:left;"&gt; gad7c &lt;/td&gt;
    &lt;td style="text-align:left;"&gt; phq9f &lt;/td&gt;
-   &lt;td style="text-align:right;"&gt; 0.09 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.13 &lt;/td&gt;
   &lt;/tr&gt;
   &lt;tr&gt;
    &lt;td style="text-align:left;"&gt; 196 &lt;/td&gt;
    &lt;td style="text-align:left;"&gt; gad7d &lt;/td&gt;
    &lt;td style="text-align:left;"&gt; phq9f &lt;/td&gt;
-   &lt;td style="text-align:right;"&gt; 0.12 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.14 &lt;/td&gt;
   &lt;/tr&gt;
   &lt;tr&gt;
    &lt;td style="text-align:left;"&gt; 197 &lt;/td&gt;
    &lt;td style="text-align:left;"&gt; gad7e &lt;/td&gt;
    &lt;td style="text-align:left;"&gt; phq9f &lt;/td&gt;
-   &lt;td style="text-align:right;"&gt; 0.18 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.08 &lt;/td&gt;
   &lt;/tr&gt;
   &lt;tr&gt;
    &lt;td style="text-align:left;"&gt; 198 &lt;/td&gt;
    &lt;td style="text-align:left;"&gt; gad7f &lt;/td&gt;
    &lt;td style="text-align:left;"&gt; phq9f &lt;/td&gt;
-   &lt;td style="text-align:right;"&gt; 0.52 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.48 &lt;/td&gt;
   &lt;/tr&gt;
   &lt;tr&gt;
    &lt;td style="text-align:left;"&gt; 199 &lt;/td&gt;
    &lt;td style="text-align:left;"&gt; gad7g &lt;/td&gt;
    &lt;td style="text-align:left;"&gt; phq9f &lt;/td&gt;
-   &lt;td style="text-align:right;"&gt; 0.75 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.63 &lt;/td&gt;
   &lt;/tr&gt;
   &lt;tr&gt;
    &lt;td style="text-align:left;"&gt; 200 &lt;/td&gt;
    &lt;td style="text-align:left;"&gt; phq9a &lt;/td&gt;
    &lt;td style="text-align:left;"&gt; phq9f &lt;/td&gt;
-   &lt;td style="text-align:right;"&gt; 0.80 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.77 &lt;/td&gt;
   &lt;/tr&gt;
   &lt;tr&gt;
    &lt;td style="text-align:left;"&gt; 201 &lt;/td&gt;
    &lt;td style="text-align:left;"&gt; phq9b &lt;/td&gt;
    &lt;td style="text-align:left;"&gt; phq9f &lt;/td&gt;
-   &lt;td style="text-align:right;"&gt; 0.29 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.30 &lt;/td&gt;
   &lt;/tr&gt;
   &lt;tr&gt;
    &lt;td style="text-align:left;"&gt; 202 &lt;/td&gt;
@@ -1105,97 +1129,97 @@ results_NCT$einv.pvals%&gt;%
    &lt;td style="text-align:left;"&gt; 203 &lt;/td&gt;
    &lt;td style="text-align:left;"&gt; phq9d &lt;/td&gt;
    &lt;td style="text-align:left;"&gt; phq9f &lt;/td&gt;
-   &lt;td style="text-align:right;"&gt; 0.61 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.65 &lt;/td&gt;
   &lt;/tr&gt;
   &lt;tr&gt;
    &lt;td style="text-align:left;"&gt; 204 &lt;/td&gt;
    &lt;td style="text-align:left;"&gt; phq9e &lt;/td&gt;
    &lt;td style="text-align:left;"&gt; phq9f &lt;/td&gt;
-   &lt;td style="text-align:right;"&gt; 0.01 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.02 &lt;/td&gt;
   &lt;/tr&gt;
   &lt;tr&gt;
    &lt;td style="text-align:left;"&gt; 209 &lt;/td&gt;
    &lt;td style="text-align:left;"&gt; gad7a &lt;/td&gt;
    &lt;td style="text-align:left;"&gt; phq9g &lt;/td&gt;
-   &lt;td style="text-align:right;"&gt; 0.73 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.66 &lt;/td&gt;
   &lt;/tr&gt;
   &lt;tr&gt;
    &lt;td style="text-align:left;"&gt; 210 &lt;/td&gt;
    &lt;td style="text-align:left;"&gt; gad7b &lt;/td&gt;
    &lt;td style="text-align:left;"&gt; phq9g &lt;/td&gt;
-   &lt;td style="text-align:right;"&gt; 0.47 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.58 &lt;/td&gt;
   &lt;/tr&gt;
   &lt;tr&gt;
    &lt;td style="text-align:left;"&gt; 211 &lt;/td&gt;
    &lt;td style="text-align:left;"&gt; gad7c &lt;/td&gt;
    &lt;td style="text-align:left;"&gt; phq9g &lt;/td&gt;
-   &lt;td style="text-align:right;"&gt; 0.31 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.42 &lt;/td&gt;
   &lt;/tr&gt;
   &lt;tr&gt;
    &lt;td style="text-align:left;"&gt; 212 &lt;/td&gt;
    &lt;td style="text-align:left;"&gt; gad7d &lt;/td&gt;
    &lt;td style="text-align:left;"&gt; phq9g &lt;/td&gt;
-   &lt;td style="text-align:right;"&gt; 0.67 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.71 &lt;/td&gt;
   &lt;/tr&gt;
   &lt;tr&gt;
    &lt;td style="text-align:left;"&gt; 213 &lt;/td&gt;
    &lt;td style="text-align:left;"&gt; gad7e &lt;/td&gt;
    &lt;td style="text-align:left;"&gt; phq9g &lt;/td&gt;
-   &lt;td style="text-align:right;"&gt; 0.72 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.82 &lt;/td&gt;
   &lt;/tr&gt;
   &lt;tr&gt;
    &lt;td style="text-align:left;"&gt; 214 &lt;/td&gt;
    &lt;td style="text-align:left;"&gt; gad7f &lt;/td&gt;
    &lt;td style="text-align:left;"&gt; phq9g &lt;/td&gt;
-   &lt;td style="text-align:right;"&gt; 0.81 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.70 &lt;/td&gt;
   &lt;/tr&gt;
   &lt;tr&gt;
    &lt;td style="text-align:left;"&gt; 215 &lt;/td&gt;
    &lt;td style="text-align:left;"&gt; gad7g &lt;/td&gt;
    &lt;td style="text-align:left;"&gt; phq9g &lt;/td&gt;
-   &lt;td style="text-align:right;"&gt; 0.85 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.78 &lt;/td&gt;
   &lt;/tr&gt;
   &lt;tr&gt;
    &lt;td style="text-align:left;"&gt; 216 &lt;/td&gt;
    &lt;td style="text-align:left;"&gt; phq9a &lt;/td&gt;
    &lt;td style="text-align:left;"&gt; phq9g &lt;/td&gt;
-   &lt;td style="text-align:right;"&gt; 0.96 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.99 &lt;/td&gt;
   &lt;/tr&gt;
   &lt;tr&gt;
    &lt;td style="text-align:left;"&gt; 217 &lt;/td&gt;
    &lt;td style="text-align:left;"&gt; phq9b &lt;/td&gt;
    &lt;td style="text-align:left;"&gt; phq9g &lt;/td&gt;
-   &lt;td style="text-align:right;"&gt; 0.26 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.29 &lt;/td&gt;
   &lt;/tr&gt;
   &lt;tr&gt;
    &lt;td style="text-align:left;"&gt; 218 &lt;/td&gt;
    &lt;td style="text-align:left;"&gt; phq9c &lt;/td&gt;
    &lt;td style="text-align:left;"&gt; phq9g &lt;/td&gt;
-   &lt;td style="text-align:right;"&gt; 0.87 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.92 &lt;/td&gt;
   &lt;/tr&gt;
   &lt;tr&gt;
    &lt;td style="text-align:left;"&gt; 219 &lt;/td&gt;
    &lt;td style="text-align:left;"&gt; phq9d &lt;/td&gt;
    &lt;td style="text-align:left;"&gt; phq9g &lt;/td&gt;
-   &lt;td style="text-align:right;"&gt; 0.34 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.33 &lt;/td&gt;
   &lt;/tr&gt;
   &lt;tr&gt;
    &lt;td style="text-align:left;"&gt; 220 &lt;/td&gt;
    &lt;td style="text-align:left;"&gt; phq9e &lt;/td&gt;
    &lt;td style="text-align:left;"&gt; phq9g &lt;/td&gt;
-   &lt;td style="text-align:right;"&gt; 0.92 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.89 &lt;/td&gt;
   &lt;/tr&gt;
   &lt;tr&gt;
    &lt;td style="text-align:left;"&gt; 221 &lt;/td&gt;
    &lt;td style="text-align:left;"&gt; phq9f &lt;/td&gt;
    &lt;td style="text-align:left;"&gt; phq9g &lt;/td&gt;
-   &lt;td style="text-align:right;"&gt; 0.89 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.91 &lt;/td&gt;
   &lt;/tr&gt;
   &lt;tr&gt;
    &lt;td style="text-align:left;"&gt; 225 &lt;/td&gt;
    &lt;td style="text-align:left;"&gt; gad7a &lt;/td&gt;
    &lt;td style="text-align:left;"&gt; phq9h &lt;/td&gt;
-   &lt;td style="text-align:right;"&gt; 0.54 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.61 &lt;/td&gt;
   &lt;/tr&gt;
   &lt;tr&gt;
    &lt;td style="text-align:left;"&gt; 226 &lt;/td&gt;
@@ -1207,13 +1231,13 @@ results_NCT$einv.pvals%&gt;%
    &lt;td style="text-align:left;"&gt; 227 &lt;/td&gt;
    &lt;td style="text-align:left;"&gt; gad7c &lt;/td&gt;
    &lt;td style="text-align:left;"&gt; phq9h &lt;/td&gt;
-   &lt;td style="text-align:right;"&gt; 0.52 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.42 &lt;/td&gt;
   &lt;/tr&gt;
   &lt;tr&gt;
    &lt;td style="text-align:left;"&gt; 228 &lt;/td&gt;
    &lt;td style="text-align:left;"&gt; gad7d &lt;/td&gt;
    &lt;td style="text-align:left;"&gt; phq9h &lt;/td&gt;
-   &lt;td style="text-align:right;"&gt; 0.54 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.52 &lt;/td&gt;
   &lt;/tr&gt;
   &lt;tr&gt;
    &lt;td style="text-align:left;"&gt; 229 &lt;/td&gt;
@@ -1225,25 +1249,25 @@ results_NCT$einv.pvals%&gt;%
    &lt;td style="text-align:left;"&gt; 230 &lt;/td&gt;
    &lt;td style="text-align:left;"&gt; gad7f &lt;/td&gt;
    &lt;td style="text-align:left;"&gt; phq9h &lt;/td&gt;
-   &lt;td style="text-align:right;"&gt; 0.01 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.02 &lt;/td&gt;
   &lt;/tr&gt;
   &lt;tr&gt;
    &lt;td style="text-align:left;"&gt; 231 &lt;/td&gt;
    &lt;td style="text-align:left;"&gt; gad7g &lt;/td&gt;
    &lt;td style="text-align:left;"&gt; phq9h &lt;/td&gt;
-   &lt;td style="text-align:right;"&gt; 0.65 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.57 &lt;/td&gt;
   &lt;/tr&gt;
   &lt;tr&gt;
    &lt;td style="text-align:left;"&gt; 232 &lt;/td&gt;
    &lt;td style="text-align:left;"&gt; phq9a &lt;/td&gt;
    &lt;td style="text-align:left;"&gt; phq9h &lt;/td&gt;
-   &lt;td style="text-align:right;"&gt; 0.86 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.84 &lt;/td&gt;
   &lt;/tr&gt;
   &lt;tr&gt;
    &lt;td style="text-align:left;"&gt; 233 &lt;/td&gt;
    &lt;td style="text-align:left;"&gt; phq9b &lt;/td&gt;
    &lt;td style="text-align:left;"&gt; phq9h &lt;/td&gt;
-   &lt;td style="text-align:right;"&gt; 0.47 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.56 &lt;/td&gt;
   &lt;/tr&gt;
   &lt;tr&gt;
    &lt;td style="text-align:left;"&gt; 234 &lt;/td&gt;
@@ -1255,25 +1279,25 @@ results_NCT$einv.pvals%&gt;%
    &lt;td style="text-align:left;"&gt; 235 &lt;/td&gt;
    &lt;td style="text-align:left;"&gt; phq9d &lt;/td&gt;
    &lt;td style="text-align:left;"&gt; phq9h &lt;/td&gt;
-   &lt;td style="text-align:right;"&gt; 0.33 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.44 &lt;/td&gt;
   &lt;/tr&gt;
   &lt;tr&gt;
    &lt;td style="text-align:left;"&gt; 236 &lt;/td&gt;
    &lt;td style="text-align:left;"&gt; phq9e &lt;/td&gt;
    &lt;td style="text-align:left;"&gt; phq9h &lt;/td&gt;
-   &lt;td style="text-align:right;"&gt; 0.91 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.87 &lt;/td&gt;
   &lt;/tr&gt;
   &lt;tr&gt;
    &lt;td style="text-align:left;"&gt; 237 &lt;/td&gt;
    &lt;td style="text-align:left;"&gt; phq9f &lt;/td&gt;
    &lt;td style="text-align:left;"&gt; phq9h &lt;/td&gt;
-   &lt;td style="text-align:right;"&gt; 0.80 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.71 &lt;/td&gt;
   &lt;/tr&gt;
   &lt;tr&gt;
    &lt;td style="text-align:left;"&gt; 238 &lt;/td&gt;
    &lt;td style="text-align:left;"&gt; phq9g &lt;/td&gt;
    &lt;td style="text-align:left;"&gt; phq9h &lt;/td&gt;
-   &lt;td style="text-align:right;"&gt; 0.88 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.92 &lt;/td&gt;
   &lt;/tr&gt;
   &lt;tr&gt;
    &lt;td style="text-align:left;"&gt; 241 &lt;/td&gt;
@@ -1285,7 +1309,7 @@ results_NCT$einv.pvals%&gt;%
    &lt;td style="text-align:left;"&gt; 242 &lt;/td&gt;
    &lt;td style="text-align:left;"&gt; gad7b &lt;/td&gt;
    &lt;td style="text-align:left;"&gt; phq9i &lt;/td&gt;
-   &lt;td style="text-align:right;"&gt; 0.49 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.56 &lt;/td&gt;
   &lt;/tr&gt;
   &lt;tr&gt;
    &lt;td style="text-align:left;"&gt; 243 &lt;/td&gt;
@@ -1303,7 +1327,7 @@ results_NCT$einv.pvals%&gt;%
    &lt;td style="text-align:left;"&gt; 245 &lt;/td&gt;
    &lt;td style="text-align:left;"&gt; gad7e &lt;/td&gt;
    &lt;td style="text-align:left;"&gt; phq9i &lt;/td&gt;
-   &lt;td style="text-align:right;"&gt; 0.98 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.96 &lt;/td&gt;
   &lt;/tr&gt;
   &lt;tr&gt;
    &lt;td style="text-align:left;"&gt; 246 &lt;/td&gt;
@@ -1315,25 +1339,25 @@ results_NCT$einv.pvals%&gt;%
    &lt;td style="text-align:left;"&gt; 247 &lt;/td&gt;
    &lt;td style="text-align:left;"&gt; gad7g &lt;/td&gt;
    &lt;td style="text-align:left;"&gt; phq9i &lt;/td&gt;
-   &lt;td style="text-align:right;"&gt; 0.10 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.13 &lt;/td&gt;
   &lt;/tr&gt;
   &lt;tr&gt;
    &lt;td style="text-align:left;"&gt; 248 &lt;/td&gt;
    &lt;td style="text-align:left;"&gt; phq9a &lt;/td&gt;
    &lt;td style="text-align:left;"&gt; phq9i &lt;/td&gt;
-   &lt;td style="text-align:right;"&gt; 0.69 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.76 &lt;/td&gt;
   &lt;/tr&gt;
   &lt;tr&gt;
    &lt;td style="text-align:left;"&gt; 249 &lt;/td&gt;
    &lt;td style="text-align:left;"&gt; phq9b &lt;/td&gt;
    &lt;td style="text-align:left;"&gt; phq9i &lt;/td&gt;
-   &lt;td style="text-align:right;"&gt; 0.31 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.36 &lt;/td&gt;
   &lt;/tr&gt;
   &lt;tr&gt;
    &lt;td style="text-align:left;"&gt; 250 &lt;/td&gt;
    &lt;td style="text-align:left;"&gt; phq9c &lt;/td&gt;
    &lt;td style="text-align:left;"&gt; phq9i &lt;/td&gt;
-   &lt;td style="text-align:right;"&gt; 0.54 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.49 &lt;/td&gt;
   &lt;/tr&gt;
   &lt;tr&gt;
    &lt;td style="text-align:left;"&gt; 251 &lt;/td&gt;
@@ -1345,25 +1369,25 @@ results_NCT$einv.pvals%&gt;%
    &lt;td style="text-align:left;"&gt; 252 &lt;/td&gt;
    &lt;td style="text-align:left;"&gt; phq9e &lt;/td&gt;
    &lt;td style="text-align:left;"&gt; phq9i &lt;/td&gt;
-   &lt;td style="text-align:right;"&gt; 0.38 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.23 &lt;/td&gt;
   &lt;/tr&gt;
   &lt;tr&gt;
    &lt;td style="text-align:left;"&gt; 253 &lt;/td&gt;
    &lt;td style="text-align:left;"&gt; phq9f &lt;/td&gt;
    &lt;td style="text-align:left;"&gt; phq9i &lt;/td&gt;
-   &lt;td style="text-align:right;"&gt; 0.77 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.86 &lt;/td&gt;
   &lt;/tr&gt;
   &lt;tr&gt;
    &lt;td style="text-align:left;"&gt; 254 &lt;/td&gt;
    &lt;td style="text-align:left;"&gt; phq9g &lt;/td&gt;
    &lt;td style="text-align:left;"&gt; phq9i &lt;/td&gt;
-   &lt;td style="text-align:right;"&gt; 0.68 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.67 &lt;/td&gt;
   &lt;/tr&gt;
   &lt;tr&gt;
    &lt;td style="text-align:left;"&gt; 255 &lt;/td&gt;
    &lt;td style="text-align:left;"&gt; phq9h &lt;/td&gt;
    &lt;td style="text-align:left;"&gt; phq9i &lt;/td&gt;
-   &lt;td style="text-align:right;"&gt; 0.89 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.90 &lt;/td&gt;
   &lt;/tr&gt;
 &lt;/tbody&gt;
 &lt;/table&gt;
@@ -1393,22 +1417,22 @@ results_NCT$diffcen.pval %&gt;%
 &lt;tbody&gt;
   &lt;tr&gt;
    &lt;td style="text-align:left;"&gt; gad7a &lt;/td&gt;
-   &lt;td style="text-align:right;"&gt; 0.12 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.17 &lt;/td&gt;
    &lt;td style="text-align:right;"&gt; 1 &lt;/td&gt;
   &lt;/tr&gt;
   &lt;tr&gt;
    &lt;td style="text-align:left;"&gt; gad7b &lt;/td&gt;
-   &lt;td style="text-align:right;"&gt; 0.35 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.29 &lt;/td&gt;
    &lt;td style="text-align:right;"&gt; 1 &lt;/td&gt;
   &lt;/tr&gt;
   &lt;tr&gt;
    &lt;td style="text-align:left;"&gt; gad7c &lt;/td&gt;
-   &lt;td style="text-align:right;"&gt; 0.94 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.82 &lt;/td&gt;
    &lt;td style="text-align:right;"&gt; 1 &lt;/td&gt;
   &lt;/tr&gt;
   &lt;tr&gt;
    &lt;td style="text-align:left;"&gt; gad7d &lt;/td&gt;
-   &lt;td style="text-align:right;"&gt; 0.23 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.17 &lt;/td&gt;
    &lt;td style="text-align:right;"&gt; 1 &lt;/td&gt;
   &lt;/tr&gt;
   &lt;tr&gt;
@@ -1418,17 +1442,17 @@ results_NCT$diffcen.pval %&gt;%
   &lt;/tr&gt;
   &lt;tr&gt;
    &lt;td style="text-align:left;"&gt; gad7f &lt;/td&gt;
-   &lt;td style="text-align:right;"&gt; 0.86 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.78 &lt;/td&gt;
    &lt;td style="text-align:right;"&gt; 1 &lt;/td&gt;
   &lt;/tr&gt;
   &lt;tr&gt;
    &lt;td style="text-align:left;"&gt; gad7g &lt;/td&gt;
-   &lt;td style="text-align:right;"&gt; 0.32 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.31 &lt;/td&gt;
    &lt;td style="text-align:right;"&gt; 1 &lt;/td&gt;
   &lt;/tr&gt;
   &lt;tr&gt;
    &lt;td style="text-align:left;"&gt; phq9a &lt;/td&gt;
-   &lt;td style="text-align:right;"&gt; 0.58 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.62 &lt;/td&gt;
    &lt;td style="text-align:right;"&gt; 1 &lt;/td&gt;
   &lt;/tr&gt;
   &lt;tr&gt;
@@ -1438,37 +1462,37 @@ results_NCT$diffcen.pval %&gt;%
   &lt;/tr&gt;
   &lt;tr&gt;
    &lt;td style="text-align:left;"&gt; phq9c &lt;/td&gt;
-   &lt;td style="text-align:right;"&gt; 0.75 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.74 &lt;/td&gt;
    &lt;td style="text-align:right;"&gt; 1 &lt;/td&gt;
   &lt;/tr&gt;
   &lt;tr&gt;
    &lt;td style="text-align:left;"&gt; phq9d &lt;/td&gt;
-   &lt;td style="text-align:right;"&gt; 0.66 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.68 &lt;/td&gt;
    &lt;td style="text-align:right;"&gt; 1 &lt;/td&gt;
   &lt;/tr&gt;
   &lt;tr&gt;
    &lt;td style="text-align:left;"&gt; phq9e &lt;/td&gt;
-   &lt;td style="text-align:right;"&gt; 0.75 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.73 &lt;/td&gt;
    &lt;td style="text-align:right;"&gt; 1 &lt;/td&gt;
   &lt;/tr&gt;
   &lt;tr&gt;
    &lt;td style="text-align:left;"&gt; phq9f &lt;/td&gt;
-   &lt;td style="text-align:right;"&gt; 0.27 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.17 &lt;/td&gt;
    &lt;td style="text-align:right;"&gt; 1 &lt;/td&gt;
   &lt;/tr&gt;
   &lt;tr&gt;
    &lt;td style="text-align:left;"&gt; phq9g &lt;/td&gt;
-   &lt;td style="text-align:right;"&gt; 0.86 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.89 &lt;/td&gt;
    &lt;td style="text-align:right;"&gt; 1 &lt;/td&gt;
   &lt;/tr&gt;
   &lt;tr&gt;
    &lt;td style="text-align:left;"&gt; phq9h &lt;/td&gt;
-   &lt;td style="text-align:right;"&gt; 0.88 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.81 &lt;/td&gt;
    &lt;td style="text-align:right;"&gt; 1 &lt;/td&gt;
   &lt;/tr&gt;
   &lt;tr&gt;
    &lt;td style="text-align:left;"&gt; phq9i &lt;/td&gt;
-   &lt;td style="text-align:right;"&gt; 0.17 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.16 &lt;/td&gt;
    &lt;td style="text-align:right;"&gt; 1 &lt;/td&gt;
   &lt;/tr&gt;
 &lt;/tbody&gt;
@@ -1478,26 +1502,76 @@ results_NCT$diffcen.pval %&gt;%
 ---
 class: left
 
-### ネットワーク比較検定の弱み
-(引用)
-- a
-- b
-- c
+## ネットワーク比較検定の弱み
+#### &lt;a name=cite-williamsBayesianEstimationGaussian2021&gt;&lt;/a&gt;[Williams (2021)](https://doi.org/10.1080/00273171.2021.1894412)
 
-#### ベイジアンネットワーク分析による群間比較可能
-- 詳細は認知・行動療法学会で
+- 複数群間での差を検討できない  　
+
+- エッジの群間差の不確実性を評価できない  　
+
+- permutation testのリサンプリングは計算効率が悪い
+
+
+#### [Williams (2021)](https://doi.org/10.1080/00273171.2021.1894412)
+- ネットワーク構造をベイズ推定  　
+
+- 事後分布や事後予測分布に基づいて、効率よく群間差を推定可能  　
+
+- `BGGM` package で推定可能  　
+
+- 詳細は、認知・行動療法学会で!!
 
 
 ---
 class: left
 
-### まとめ
+## まとめ
 
 
+#### - 合併症等のコミュニティ間の接続メカニズムの検討にブリッジ中心性が有用
+
+#### - `networktools` package で容易に推定可能
+
+#### - 算出したブリッジ中心性指標は他の中心性指標と同様に安定性を評価
+
+#### - ネットワークの群間比較には、ネットワーク比較検定が有用
+
+#### - `NeworkComparisonTest` package で容易に推定可能
+
+#### - 全体的なネットワーク構造の群間差、個々のエッジの群間差、中心性指標の群間差が検討可能
 
 ---
 
-# References
+####  References
+
+
+&lt;a name=bib-vanborkuloComparingNetworkStructures2022&gt;&lt;/a&gt;[Borkulo, C.
+D. van, R. van Bork, L. Boschloo, et
+al.](#cite-vanborkuloComparingNetworkStructures2022) (2022). "Comparing
+network structures on three aspects: A permutation test". In:
+_Psychological Methods_. Place: US Publisher: American Psychological
+Association, pp. No Pagination Specified-No Pagination Specified. ISSN:
+1939-1463. DOI:
+[10.1037/met0000476](https://doi.org/10.1037%2Fmet0000476).
+
+&lt;a name=bib-christensenEquivalencyFactorNetwork2021&gt;&lt;/a&gt;[Christensen,
+A. P. and H. Golino](#cite-christensenEquivalencyFactorNetwork2021)
+(2021). "On the equivalency of factor and network loadings". En. In:
+_Behavior Research Methods_ 53.4, pp. 1563-1580. ISSN: 1554-3528. DOI:
+[10.3758/s13428-020-01500-6](https://doi.org/10.3758%2Fs13428-020-01500-6).
+URL:
+[https://doi.org/10.3758/s13428-020-01500-6](https://doi.org/10.3758/s13428-020-01500-6)
+(visited on 8. 28, 2022).
+
+&lt;a name=bib-christensenWhatBridgeCentrality2021&gt;&lt;/a&gt;[Christensen, A.,
+L. E. Garrido, and H.
+Golino](#cite-christensenWhatBridgeCentrality2021) (2021). _What is
+bridge centrality? A comment on Jones, Ma, and McNally (2019_. Type:
+article. DOI:
+[10.31234/osf.io/a8svr](https://doi.org/10.31234%2Fosf.io%2Fa8svr).
+URL:
+[https://doi.org/10.31234/osf.io/a8svr](https://doi.org/10.31234/osf.io/a8svr)
+(visited on 8. 28, 2022).
 
 &lt;a name=bib-jonesBridgeCentralityNetwork2021&gt;&lt;/a&gt;[Jones, P. J., R. Ma,
 and R. J. McNally](#cite-jonesBridgeCentralityNetwork2021) (2021).
@@ -1510,16 +1584,29 @@ URL:
 [https://doi.org/10.1080/00273171.2019.1614898](https://doi.org/10.1080/00273171.2019.1614898)
 (visited on 8. 28, 2022).
 
+&lt;a name=bib-williamsBayesianEstimationGaussian2021&gt;&lt;/a&gt;[Williams, D.
+R.](#cite-williamsBayesianEstimationGaussian2021) (2021). "Bayesian
+Estimation for Gaussian Graphical Models: Structure Learning,
+Predictability, and Network Comparisons". In: _Multivariate Behavioral
+Research_ 56.2. Publisher: Routledge \_ eprint:
+https://doi.org/10.1080/00273171.2021.1894412, pp. 336-352. ISSN:
+0027-3171. DOI:
+[10.1080/00273171.2021.1894412](https://doi.org/10.1080%2F00273171.2021.1894412).
+URL:
+[https://doi.org/10.1080/00273171.2021.1894412](https://doi.org/10.1080/00273171.2021.1894412)
+(visited on 8. 29, 2022).
+
+
 
 ---
 
 class: center, middle
 
-# Thanks!
+# Enjoy!
 
-Slides created via the R package [**xaringan**](https://github.com/yihui/xaringan).
+## ytake2[at]fmu.ac.jp
 
-The chakra comes from [remark.js](https://remarkjs.com), [**knitr**](https://yihui.org/knitr/), and [R Markdown](https://rmarkdown.rstudio.com).
+
     </textarea>
 <style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
 <script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
