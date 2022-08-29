@@ -1,0 +1,1637 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+  <head>
+    <title>TWS-007:「心理ネットワークアプローチ入門」</title>
+    <meta charset="utf-8" />
+    <meta name="author" content="竹林 由武 (福島県立医科大学)" />
+    <meta name="date" content="2022-08-29" />
+    <script src="PsychNetwork_files/header-attrs/header-attrs.js"></script>
+    <script src="PsychNetwork_files/kePrint/kePrint.js"></script>
+    <link href="PsychNetwork_files/lightable/lightable.css" rel="stylesheet" />
+    <link rel="stylesheet" href="xaringan-themer.css" type="text/css" />
+  </head>
+  <body>
+    <textarea id="source">
+class: center, middle, inverse, title-slide
+
+.title[
+# <font size=5>TWS-007:「心理ネットワークアプローチ入門」</font>
+]
+.subtitle[
+## 横断的心理ネットワーク分析:応用編
+]
+.author[
+### 竹林 由武 (福島県立医科大学)
+]
+.institute[
+### 日本心理学会2022
+]
+.date[
+### 2022-08-29
+]
+
+---
+
+
+
+
+
+## 配布資料
+
+.pull-left[
+
+### スライド
+
+]
+
+.pull-right[
+
+### ドキュメント
+
+]
+
+
+
+
+
+
+
+---
+class:  left
+
+# Topic
+
+## - ブリッジ中心性
+## - ネットワークの群間比較
+
+
+
+---
+class: middle, inverse
+
+## ブリッジ中心性 (bridge centrality) 
+
+コミュニティとコミュニティをつなぐ橋として機能するノードはどれだ
+
+&lt;img src="http://www.tokachigawa.net/otofuketime/imgs/view/detail/view17_img.jpg" width="700px" height="400px" style="position:right; right:10px; top:100px;"&gt;
+
+
+---
+class: left
+
+### コミュニティ
+#### (community)
+
+.pull-left[
+- 各項目が所属するカテゴリー
+- カテゴリーは理論的に規定*
+- 黄色は不安（GAD7)、青は抑うつ（PHQ9)
+#####　
+
+### ブリッジ中心性
+#### (bridge centrality)
+- コミュニティ間の橋渡しにおける中心性
+- 合併症のメカニズムの理解に役立つ
+
+.footnote[[*] ブリッジ中心性の算出においては、コミュニティは理論ドリブンに設定することが想定されているが、探索的な解析に基づいてコミュニティ抽出してから中心性を算出している論文も報告されている]
+]
+
+.pull-right[
+![](PsychNetwork_files/figure-html/unnamed-chunk-1-1.png)&lt;!-- --&gt;
+]
+
+
+
+
+---
+class: left
+
+## ブリッジ中心性指標 
+#### &lt;a name=cite-jonesBridgeCentralityNetwork2021&gt;&lt;/a&gt;([Jones, Ma, and McNally, 2021](https://doi.org/10.1080/00273171.2019.1614898))
+
+### - bridge strength
+### - bridge betweeness
+### - bridge closeness
+### - bridge expected influence
+
+
+---
+
+## ブリッジ中心性指標
+
+.pull-left[
+&lt;font size=5&gt;&lt;B&gt;Bridge strength&lt;/B&gt;&lt;/font&gt;
+- 当該のノードが他のコミュニティに接続する合計。    　
+
+- 当該のノードが他のコミュニティのノードと接続している**エッジの絶対値の合計**。  　
+
+- 当該ノードの所属外コミュニティへの影響力。
+  　
+  　　
+  　　　
+  　　　　
+  　　　　　
+  　　　　　　
+  　　　　　　
+`$$bridge \space strength = \sum_{b\ni N(a)-C} |w_{ab}|.$$`
+]
+
+.pull-right[
+&lt;font size=5&gt;&lt;B&gt;Bridge expected influence &lt;/B&gt;&lt;/font&gt;
+- 当該のノードが他のコミュニティに接続する合計。  　
+  　
+  　
+
+- 当該のノードが他のコミュニティのノードと接続しているエッジの絶対値ではなく**そのままの値**を合計。
+
+- 当該ノードの所属外コミュニティへの**正負の**影響力。
+  　
+  　　
+  　　　
+  　　　　
+  　　　　　
+  　　　　　　
+  　　　　　　
+`$$bridge \space strength =  \sum_{b\ni N(a)-C} w_{ab}.$$`
+]
+
+
+---
+class: left
+
+## ブリッジ中心性指標
+
+.pull-left[
+&lt;font size =5&gt;&lt;B&gt;Bridge betweeness&lt;/B&gt;&lt;/font&gt;   
+
+- 2つの異なるコミュニティからの任意の２つのノード間の最短経路上に当該のノードがある回数。  　
+
+- 当該のノードがコミュニティ間をどのくらい媒介しているのか。  　  
+  　  　  　  　　　　
+  　  　  　  　　　　  　
+`\begin{equation}
+\small x =
+\begin{cases} \small 0.5, \rm{if} \space a \in P_{ij} \\ 
+\small 0, \rm{otherwise}\end{cases}
+\end{equation}`
+
+    
+$$\small bridge \space betweeness = \sum_{i\in V}x_i. $$
+]
+
+
+.pull-right[
+&lt;font size =5&gt;&lt;B&gt;Bridge closeness&lt;/B&gt;&lt;/font&gt;  
+
+- 当該のノードから、他のコミュニティのすべてのノードまでの平均距離。  　
+
+- 距離はエッジの重みの逆数（重みの大きいエッジは、より「近い」ノード）。  　
+
+- より高い値がより近いノードを表す指標となるよう平均距離の逆数をとる。  　
+
+  　
+- 当該のノードが，どのくらい他のコミュニティに(距離が)近いのか。  　
+
+
+`$$\small bridge \space closeness =  \\ \small  \frac{|V-C|}{\sum_{b\in(V-C)} \sum_{e_k\in E(P_{ab})\frac{1}{w_{k}}}}.$$`
+]
+
+
+
+
+
+
+---
+class: inverse, middle
+
+# Rでブリッジ中心性を計算
+
+---
+
+### 使用パッケージの読み込み
+
+#### データ整形系  
+
+####　
+
+
+```r
+library(tidyverse)
+library(foreign)
+library(kableExtra)
+```
+
+#### ネットワーク解析系  
+
+####　
+
+
+```r
+library(bootnet)
+library(qgraph)
+library(psychonetrics)
+library(NetworkComparisonTest)
+```
+
+
+
+---
+class: left
+
+### データの読み込み
+
+#### Jordan et al.(2017)のデータをダウンロードして，読み込む。
+
+
+```r
+download.file("https://doi.org/10.1371/journal.pone.0182162.s004",
+              "pone.0182162.s004.sav")
+data &lt;- read.spss("pone.0182162.s004.sav",to.data.frame=TRUE)
+```
+
+### 使用変数の抽出
+
+#### PHQ9とGAD7のみ使用変数として抽出
+
+
+```r
+data %&gt;%
+  select_if(grepl("PHQ9|GAD7", names(.))) -&gt;usedata
+
+cns1&lt;-colnames(usedata)
+v_names&lt;-chartr("1-9","a-i",c(1:9))
+cns2&lt;-c(paste0("gad7",v_names[1:7]),
+        paste0("phq9",v_names))
+cols&lt;-setNames(cns1, cns2)
+
+usedata %&gt;% 
+  rename_(.dots=cols) -&gt; usedata
+```
+
+
+---
+
+### ネットワークの推定
+
+#### EBICglassoで正則化モデルで推定
+
+
+```r
+library(bootnet)
+results &lt;- estimateNetwork(usedata,
+                           default = "EBICglasso",
+                           corMethod = "cor_auto")
+```
+
+- bootnetパッケージのestimateNetwork()関数を使って，EBICでモデル選択して，パラメータ調整をするGLASSOを使う (**default=EBICglasso**)
+
+---
+
+### プロット
+
+
+```r
+results_bridge&lt;-plot(results, 
+                     theme = "colorblind", 
+                     cut = 0,layout = "spring",labels = TRUE, 
+                     groups=list("GAD7"=c(1:7),"PHQ9"=c(8:16)))
+```
+
+&lt;img src="PsychNetwork_files/figure-html/unnamed-chunk-7-1.png" width="400px" height="350px" style="display: block; margin: auto;" /&gt;
+
+**groups=list("GAD7"=c(1:7),"PHQ9"=c(8:16))**でコミュニティを指定
+
+---
+
+### ブリッジ中心性指標の算出
+
+
+```r
+library(networktools)
+bridge_centrality &lt;- bridge(results_bridge, 
+                            communities=c(rep(1,7),rep(2,9)))
+plot(bridge_centrality)
+```
+
+&lt;img src="PsychNetwork_files/figure-html/unnamed-chunk-8-1.png" width="750px" height="300px" style="display: block; margin: auto;" /&gt;
+- bridge expected influenceが高いのはノード5,9
+- bridge strengthが高いのはノード4,15
+
+---
+
+### ブリッジ中心性指標の安定性
+
+
+```r
+bridge_stability &lt;- bootnet(results, nBoots = 2500, 
+                            type = "case", nCores =4, 
+                            statistics =  c("bridgeStrength", 
+                                            "bridgeCloseness", 
+                                            "bridgeBetweenness"), 
+                            communities = list("GAD7"=c(1:7), 
+                                               "PHQ9"=c(8:16)))
+```
+
+- bootnetパッケージのbootnet()関数を使う.
+- 「type = ”case”」でケースドロップ時の安定性を推定。  
+
+- **statistics = "bridgeStrength", "bridgeCloseness", "bridgeBetweenness"**で
+  　指定する。
+
+  - bridge expected influenceは非対応
+
+- **communities = list("GAD7"=c(1:7),"PHQ9"=c(8:16))**でコミュニティを指定
+
+
+
+
+
+---
+
+### ブリッジ中心性指標の安定性
+
+
+```r
+corStability(bridge_stability)
+```
+
+```
+bridgeBetweenness: 0.594 
+  - For more accuracy, run bootnet(...,  　  
+  　　　　　　　　　　　　　　　　caseMin = 0.517, caseMax = 0.672) 
+
+bridgeCloseness: 0.439 
+  - For more accuracy, run bootnet(..., caseMin = 0.361,   　
+  　　　　　　　　　　　　　　　　caseMax = 0.517) 
+
+bridgeStrength: 0.672 
+  - For more accuracy, run bootnet(..., caseMin = 0.594,   　
+  　　　　　　　　　　　　　　　　caseMax = 0.75) 
+
+Accuracy can also be increased by 
+       increasing both 'nBoots' and 'caseN'.
+```
+
+bridge closenessはCS係数が.50をきっており不安定、解釈を控える
+
+---
+
+### ブリッジ中心性指標の安定性のプロット
+
+
+
+```r
+plot(stability_centrality_bridge,
+     c("bridgeStrength","bridgeCloseness",
+       "bridgeBetweenness"))
+```
+
+&lt;img src="PsychNetwork_files/figure-html/unnamed-chunk-13-1.png" width="600px" height="400px" style="display: block; margin: auto;" /&gt;
+
+ブリッジ中心性指標は、サンプルをかなり減らしても，オリジナルとの相関が高い。
+
+---
+### ブリッジ中心性指標の弱み
+(引用)
+
+- a
+- b
+- c
+
+
+#### ネットワーク負荷量で考察が深まるかも
+
+---
+class: middle, inverse
+
+# ネットワークの群間比較
+
+ネットワークの構造が群間で異なるのか推測したい
+
+![](fig/NCT.png)
+
+---
+class: left
+
+## ネットワーク比較検定
+(Network Comparison Test: NCT, )
+
+- Step1: 観察データを群ごとにネット分析し、群間差の指標を計算  　
+
+- Step2: 観測データからリサンプリングしたデータでStep1の計算を繰り返し、群間差指標の参照分布を得る
+- Step3: Step1で計算された群間差指標の値と参照分布を比較し、観察データの逸脱度を評価（統計的有意性）
+
+&lt;img src="fig/NCT2.png" width="50%" height="50%" style="display: block; margin: auto;" /&gt;
+
+
+---
+class: center
+
+## ネットワーク比較検定
+
+
+&lt;img src="fig/NCT3.png" width="80%" height="80%" style="display: block; margin: auto;" /&gt;
+
+[&lt;font size=3&gt; https://cvborkulo.files.wordpress.com/2014/09/workshop-summer-school-3-parts.pdf &lt;/font&gt;
+](https://cvborkulo.files.wordpress.com/2014/09/workshop-summer-school-3-parts.pdf)
+
+
+
+
+---
+class: left
+
+## ネットワーク比較検定
+(Network Comparison Test: NCT, )
+
+### - Network invariance test
+### - Global strength invariance test
+### - Edge invariance test
+### - Centrality invariance test
+
+
+ 
+---
+class: left
+
+### ネットワークの群間比較
+(Network Comparison Test: NCT, )
+
+#### 1. Network structure invariance hypothesis 
+- ネットワーク構造が群間で完全に等しい
+- 個々のエッジの群間の差(の絶対値)の最大値
+
+
+#### 2.Global strength invariance hypothesis*
+- 群間で全体の連結レベルが等しい
+- エッジの絶対値の総和(Global Strength)の差
+
+
+#### 3. Edge strength invariance hypothesis 
+- 特定のエッジが群間で等しい
+- 特定のエッジの群間差
+
+.footnote[[*]個々の中心性指標、ブリッジ中心性指標についても比較可能]
+
+---
+class: left
+
+### ネットワークの群間比較
+(Network Comparison Test: NCT, )
+
+
+&lt;img src="fig/NCT4.png" width="100%" height="100%" style="display: block; margin: auto;" /&gt;
+
+
+---
+class: middle,inverse
+
+# Rでネットワーク比較検定
+
+---
+class: left
+
+### 群間比較の準備
+
+#### 性別変数を**usedata**に追加し、性別ごとのデータセットを抽出
+
+
+
+```r
+usedata$gender&lt;-data$gender
+
+usedata %&gt;% 
+  filter(gender=="Weiblich")-&gt;women
+
+usedata %&gt;% 
+  filter(gender=="Männlich")-&gt;men
+```
+
+#### 性別ごとのデータセットでネットワーク分析を実施
+
+
+```r
+network_male &lt;- estimateNetwork(women, 
+                                default = "EBICglasso", 
+                                corMethod = "cor_auto")
+
+network_female &lt;- estimateNetwork(men, 
+                                  default = "EBICglasso", 
+                                  corMethod = "cor_auto")
+```
+
+
+---
+### 群ごとのネットワークのプロット
+
+#### 群間でレイアウトが一致するように調整
+- 2群のネットワークの平均をとって比較するプロットのノードの位置を固定 (**averageLayout**)  
+
+- 両群のエッジの中から最大値をとって、比較するプロットのエッジの最大値を固定 (**maximum=Max**)
+  　
+
+```r
+L &lt;- averageLayout(network_male, network_female)
+Max &lt;- max(abs(c(getWmat(network_male), getWmat(network_female)))) 
+
+layout(t(1:2))
+plot(network_male, layout = L, title = "Males", maximum = Max) 
+plot(network_female, layout = L, title = "Females", maximum = Max)
+```
+
+  　　
+  　　　
+---
+### 群ごとのネットワークのプロット 　　　　
+  　　　　
+  　
+&lt;img src="PsychNetwork_files/figure-html/unnamed-chunk-20-1.png" width="750px" height="450px" style="display: block; margin: auto;" /&gt;
+
+
+
+---
+### ネットワーク比較検定
+
+- データから欠測値を削除  　
+
+- **test.edges=TRUE**で個々のエッジが群間で異なるか比較  　
+
+- **test.centrality=TRUE**で個々のノードの中心性が群間で異なるか  　
+
+- 2値データはlsing, 連続データはEBICglassoで推定  　
+
+- 検討可能な中心性指標
+  - "**closeness**", "**betweenness**", "**strength**", "**expectedInfluence**", "**bridgeStrength**", "**bridgeCloseness**", "**bridgeBetweenness**", "**bridgeExpectedInfluence**"
+
+
+
+```r
+library(NetworkComparisonTest)
+results_NCT&lt;-NCT(na.omit(women[,-17]),na.omit(men[,-17]), 
+                 test.edges=TRUE, test.centrality=TRUE, 
+                 centrality=c("expectedInfluence","bridgeStrength"), 
+                 communities=c(rep(1,7),rep(2,9)),
+                 progressbar=F)
+```
+
+---
+### ネットワーク比較検定結果
+
+
+```r
+summary(results_NCT)
+```
+
+```
+NETWORK INVARIANCE TEST
+      Test statistic M:  0.1185867 
+ p-value 0.34 
+
+GLOBAL STRENGTH INVARIANCE TEST
+      Global strength per group:  7.298997 7.196549 
+ Test statistic S:  0.1024473 
+ p-value 0.55 
+```
+
+いずれの指標においても群間差は示されず
+
+
+---
+### ネットワーク比較検定結果 (プロット)
+.pull-left[
+Network invariance
+
+```r
+plot(results_NCT,
+     what="network")
+```
+
+![](PsychNetwork_files/figure-html/unnamed-chunk-23-1.png)&lt;!-- --&gt;
+]
+
+.pull-right[
+Global strength invariance
+
+```r
+plot(results_NCT,
+     what="strength")
+```
+
+![](PsychNetwork_files/figure-html/unnamed-chunk-24-1.png)&lt;!-- --&gt;
+]
+
+いずれの指標においても群間差は示されず
+
+
+---
+### ネットワーク比較検定結果
+
+Edge strength invariance test
+
+
+```r
+results_NCT$einv.pvals%&gt;% 
+    kbl(.) %&gt;%
+      kable_styling()
+```
+
+&lt;table class="table" style="margin-left: auto; margin-right: auto;"&gt;
+ &lt;thead&gt;
+  &lt;tr&gt;
+   &lt;th style="text-align:left;"&gt;   &lt;/th&gt;
+   &lt;th style="text-align:left;"&gt; Var1 &lt;/th&gt;
+   &lt;th style="text-align:left;"&gt; Var2 &lt;/th&gt;
+   &lt;th style="text-align:right;"&gt; p-value &lt;/th&gt;
+  &lt;/tr&gt;
+ &lt;/thead&gt;
+&lt;tbody&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; 17 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; gad7a &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; gad7b &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.95 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; 33 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; gad7a &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; gad7c &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.70 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; 34 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; gad7b &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; gad7c &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.72 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; 49 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; gad7a &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; gad7d &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.52 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; 50 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; gad7b &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; gad7d &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.94 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; 51 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; gad7c &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; gad7d &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.66 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; 65 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; gad7a &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; gad7e &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.03 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; 66 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; gad7b &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; gad7e &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.78 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; 67 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; gad7c &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; gad7e &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 1.00 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; 68 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; gad7d &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; gad7e &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.92 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; 81 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; gad7a &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; gad7f &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.34 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; 82 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; gad7b &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; gad7f &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.06 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; 83 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; gad7c &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; gad7f &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.84 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; 84 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; gad7d &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; gad7f &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.28 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; 85 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; gad7e &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; gad7f &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.92 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; 97 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; gad7a &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; gad7g &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.59 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; 98 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; gad7b &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; gad7g &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.19 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; 99 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; gad7c &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; gad7g &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.12 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; 100 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; gad7d &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; gad7g &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.67 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; 101 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; gad7e &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; gad7g &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.64 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; 102 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; gad7f &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; gad7g &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.20 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; 113 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; gad7a &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; phq9a &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.86 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; 114 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; gad7b &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; phq9a &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.23 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; 115 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; gad7c &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; phq9a &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.57 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; 116 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; gad7d &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; phq9a &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.76 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; 117 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; gad7e &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; phq9a &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.43 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; 118 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; gad7f &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; phq9a &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.33 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; 119 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; gad7g &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; phq9a &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 1.00 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; 129 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; gad7a &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; phq9b &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.22 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; 130 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; gad7b &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; phq9b &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.51 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; 131 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; gad7c &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; phq9b &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.75 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; 132 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; gad7d &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; phq9b &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.53 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; 133 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; gad7e &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; phq9b &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.87 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; 134 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; gad7f &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; phq9b &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.36 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; 135 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; gad7g &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; phq9b &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.92 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; 136 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; phq9a &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; phq9b &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.02 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; 145 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; gad7a &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; phq9c &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.28 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; 146 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; gad7b &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; phq9c &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.03 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; 147 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; gad7c &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; phq9c &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.49 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; 148 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; gad7d &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; phq9c &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.92 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; 149 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; gad7e &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; phq9c &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.52 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; 150 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; gad7f &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; phq9c &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 1.00 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; 151 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; gad7g &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; phq9c &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.33 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; 152 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; phq9a &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; phq9c &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.20 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; 153 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; phq9b &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; phq9c &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.86 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; 161 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; gad7a &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; phq9d &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.19 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; 162 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; gad7b &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; phq9d &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 1.00 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; 163 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; gad7c &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; phq9d &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.70 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; 164 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; gad7d &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; phq9d &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.64 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; 165 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; gad7e &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; phq9d &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.05 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; 166 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; gad7f &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; phq9d &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.32 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; 167 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; gad7g &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; phq9d &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 1.00 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; 168 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; phq9a &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; phq9d &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.75 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; 169 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; phq9b &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; phq9d &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.97 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; 170 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; phq9c &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; phq9d &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.92 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; 177 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; gad7a &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; phq9e &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.10 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; 178 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; gad7b &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; phq9e &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 1.00 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; 179 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; gad7c &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; phq9e &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.30 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; 180 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; gad7d &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; phq9e &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.61 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; 181 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; gad7e &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; phq9e &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.58 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; 182 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; gad7f &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; phq9e &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.44 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; 183 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; gad7g &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; phq9e &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.02 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; 184 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; phq9a &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; phq9e &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.45 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; 185 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; phq9b &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; phq9e &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 1.00 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; 186 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; phq9c &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; phq9e &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.50 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; 187 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; phq9d &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; phq9e &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.70 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; 193 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; gad7a &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; phq9f &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 1.00 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; 194 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; gad7b &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; phq9f &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 1.00 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; 195 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; gad7c &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; phq9f &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.10 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; 196 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; gad7d &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; phq9f &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.21 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; 197 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; gad7e &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; phq9f &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.12 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; 198 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; gad7f &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; phq9f &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.39 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; 199 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; gad7g &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; phq9f &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.63 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; 200 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; phq9a &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; phq9f &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.77 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; 201 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; phq9b &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; phq9f &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.29 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; 202 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; phq9c &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; phq9f &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 1.00 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; 203 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; phq9d &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; phq9f &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.59 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; 204 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; phq9e &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; phq9f &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.01 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; 209 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; gad7a &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; phq9g &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.76 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; 210 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; gad7b &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; phq9g &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.49 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; 211 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; gad7c &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; phq9g &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.26 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; 212 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; gad7d &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; phq9g &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.67 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; 213 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; gad7e &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; phq9g &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.73 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; 214 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; gad7f &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; phq9g &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.70 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; 215 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; gad7g &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; phq9g &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.78 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; 216 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; phq9a &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; phq9g &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.98 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; 217 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; phq9b &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; phq9g &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.26 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; 218 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; phq9c &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; phq9g &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.94 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; 219 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; phq9d &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; phq9g &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.40 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; 220 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; phq9e &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; phq9g &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.89 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; 221 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; phq9f &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; phq9g &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.91 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; 225 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; gad7a &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; phq9h &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.56 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; 226 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; gad7b &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; phq9h &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 1.00 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; 227 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; gad7c &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; phq9h &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.41 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; 228 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; gad7d &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; phq9h &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.49 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; 229 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; gad7e &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; phq9h &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.09 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; 230 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; gad7f &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; phq9h &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.04 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; 231 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; gad7g &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; phq9h &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.70 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; 232 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; phq9a &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; phq9h &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.80 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; 233 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; phq9b &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; phq9h &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.46 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; 234 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; phq9c &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; phq9h &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 1.00 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; 235 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; phq9d &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; phq9h &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.36 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; 236 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; phq9e &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; phq9h &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.90 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; 237 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; phq9f &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; phq9h &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.62 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; 238 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; phq9g &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; phq9h &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.88 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; 241 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; gad7a &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; phq9i &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 1.00 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; 242 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; gad7b &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; phq9i &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.51 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; 243 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; gad7c &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; phq9i &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 1.00 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; 244 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; gad7d &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; phq9i &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 1.00 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; 245 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; gad7e &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; phq9i &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.99 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; 246 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; gad7f &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; phq9i &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 1.00 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; 247 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; gad7g &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; phq9i &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.09 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; 248 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; phq9a &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; phq9i &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.73 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; 249 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; phq9b &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; phq9i &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.38 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; 250 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; phq9c &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; phq9i &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.58 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; 251 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; phq9d &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; phq9i &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.16 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; 252 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; phq9e &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; phq9i &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.37 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; 253 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; phq9f &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; phq9i &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.77 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; 254 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; phq9g &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; phq9i &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.68 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; 255 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; phq9h &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; phq9i &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.92 &lt;/td&gt;
+  &lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+
+
+
+---
+### ネットワーク比較検定結果
+
+Edge strength invariance test
+
+
+```r
+results_NCT$diffcen.pval %&gt;% 
+    kbl(.) %&gt;%
+      kable_styling()
+```
+
+&lt;table class="table" style="margin-left: auto; margin-right: auto;"&gt;
+ &lt;thead&gt;
+  &lt;tr&gt;
+   &lt;th style="text-align:left;"&gt;   &lt;/th&gt;
+   &lt;th style="text-align:right;"&gt; expectedInfluence &lt;/th&gt;
+   &lt;th style="text-align:right;"&gt; bridgeStrength &lt;/th&gt;
+  &lt;/tr&gt;
+ &lt;/thead&gt;
+&lt;tbody&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; gad7a &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.14 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 1 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; gad7b &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.22 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 1 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; gad7c &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.92 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 1 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; gad7d &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.33 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 1 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; gad7e &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.02 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 1 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; gad7f &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.82 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 1 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; gad7g &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.27 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 1 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; phq9a &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.60 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 1 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; phq9b &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.37 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 1 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; phq9c &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.80 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 1 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; phq9d &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.68 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 1 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; phq9e &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.76 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 1 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; phq9f &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.17 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 1 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; phq9g &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.90 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 1 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; phq9h &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.92 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 1 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; phq9i &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.28 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 1 &lt;/td&gt;
+  &lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+
+
+---
+class: left
+
+### ネットワーク比較検定の弱み
+(引用)
+- a
+- b
+- c
+
+#### ベイジアンネットワーク分析による群間比較可能
+- 詳細は認知・行動療法学会で
+
+
+---
+class: left
+
+### まとめ
+
+
+
+---
+
+# References
+
+&lt;a name=bib-jonesBridgeCentralityNetwork2021&gt;&lt;/a&gt;[Jones, P. J., R. Ma,
+and R. J. McNally](#cite-jonesBridgeCentralityNetwork2021) (2021).
+"Bridge Centrality: A Network Approach to Understanding Comorbidity".
+In: _Multivariate Behavioral Research_ 56.2. Publisher: Routledge \_
+eprint: https://doi.org/10.1080/00273171.2019.1614898, pp. 353-367.
+ISSN: 0027-3171. DOI:
+[10.1080/00273171.2019.1614898](https://doi.org/10.1080%2F00273171.2019.1614898).
+URL:
+[https://doi.org/10.1080/00273171.2019.1614898](https://doi.org/10.1080/00273171.2019.1614898)
+(visited on 8. 28, 2022).
+
+
+---
+
+class: center, middle
+
+# Thanks!
+
+Slides created via the R package [**xaringan**](https://github.com/yihui/xaringan).
+
+The chakra comes from [remark.js](https://remarkjs.com), [**knitr**](https://yihui.org/knitr/), and [R Markdown](https://rmarkdown.rstudio.com).
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script>var slideshow = remark.create();
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();
+// add `data-at-shortcutkeys` attribute to <body> to resolve conflicts with JAWS
+// screen reader (see PR #262)
+(function(d) {
+  let res = {};
+  d.querySelectorAll('.remark-help-content table tr').forEach(tr => {
+    const t = tr.querySelector('td:nth-child(2)').innerText;
+    tr.querySelectorAll('td:first-child .key').forEach(key => {
+      const k = key.innerText;
+      if (/^[a-z]$/.test(k)) res[k] = t;  // must be a single letter (key)
+    });
+  });
+  d.body.setAttribute('data-at-shortcutkeys', JSON.stringify(res));
+})(document);
+(function() {
+  "use strict"
+  // Replace <script> tags in slides area to make them executable
+  var scripts = document.querySelectorAll(
+    '.remark-slides-area .remark-slide-container script'
+  );
+  if (!scripts.length) return;
+  for (var i = 0; i < scripts.length; i++) {
+    var s = document.createElement('script');
+    var code = document.createTextNode(scripts[i].textContent);
+    s.appendChild(code);
+    var scriptAttrs = scripts[i].attributes;
+    for (var j = 0; j < scriptAttrs.length; j++) {
+      s.setAttribute(scriptAttrs[j].name, scriptAttrs[j].value);
+    }
+    scripts[i].parentElement.replaceChild(s, scripts[i]);
+  }
+})();
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>
