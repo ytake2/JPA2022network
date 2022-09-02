@@ -148,7 +148,7 @@ $$bridge \space strength = \sum_{b\ni N(a)-C} |w_{ab}|.$$
   　　　　　
   　　　　　　
   　　　　　　
-$$bridge \space strength =  \sum_{b\ni N(a)-C} w_{ab}.$$
+$$\small bridge \space expected \space influence =  \sum_{b\ni N(a)-C} w_{ab}.$$
 ]
 
 
@@ -654,7 +654,7 @@ results_NCT$einv.pvals%>%
 ---
 ### ネットワーク比較検定結果
 
-Edge strength invariance test
+Centrality invariance test
 
 ```{r}
 
